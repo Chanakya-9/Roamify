@@ -1,8 +1,8 @@
-if (process.env.NODE_ENV != "production") {
-    require('dotenv').config({ quiet: true });
-}
+// if (process.env.NODE_ENV != "production") {
+// }
 
-dotenv.config();
+require('dotenv').config({ path: "/.env" }); 
+// dotenv.config();
 
 const express = require("express");
 const app = express();
@@ -35,7 +35,7 @@ main()
     });
 
 async function main() {
-    await mongoose.connect(dbURL);
+    await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");
