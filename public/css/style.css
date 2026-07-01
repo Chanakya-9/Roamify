@@ -1,8 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Cabinet+Grotesk:wght@700;800&family=Inter:wght@400;500;600&display=swap');
+
 body {
-    font-family: "Plus Jakarta Sans", sans-serif !important;
+    font-family: "Inter", sans-serif !important;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    letter-spacing: -0.01em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.navbar-brand {
+    font-family: "Cabinet Grotesk", sans-serif !important;
+    letter-spacing: -0.03em;
 }
 
 .container {
@@ -19,8 +33,38 @@ body {
     font-size: 2rem;
 }
 
+/* Navbar Link Animated State */
 .nav-link {
     color: #222222 !important;
+    font-weight: 500;
+    position: relative;
+    padding: 0.25rem 0 !important;
+    margin: 0 1rem;
+    transition: color 0.3s ease;
+}
+
+/* Create the hidden underline bar */
+.nav-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #fe424d;
+    /* Uses your brand color */
+    transform-origin: bottom center;
+    transition: transform 0.25s ease-out;
+}
+
+/* Hover triggers color shift and line slide expansion */
+.nav-link:hover {
+    color: #fe424d !important;
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
 }
 
 /* footer */
@@ -61,16 +105,34 @@ body {
 .listing-card {
     border: none !important;
     margin-bottom: 2rem;
+    background-color: transparent !important;
+    overflow: hidden !important;
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.listing-card:hover {
+    transform: translateY(-5px) !important;
 }
 
 .card-img-top {
     border-radius: 1rem;
     width: 100% !important;
     object-fit: cover !important;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease !important;
+}
+
+.listing-card:hover .card-img-top {
+    transform: scale(1.03) !important;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15) !important;
 }
 
 .card-body {
     padding: 0 !important;
+}
+
+.card-title {
+    font-weight: 700 !important;
 }
 
 .card-text p {
@@ -81,31 +143,43 @@ body {
     text-decoration: none;
 }
 
-/* Card Effect */
+/* Card Overlay Mask */
 .card-img-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     opacity: 0;
+    border-radius: 1rem;
+    transition: opacity 0.3s ease !important;
+    pointer-events: none;
 }
 
-.card-img-overlay:hover {
-    opacity: 0.2;
-    background-color: white;
+.listing-card:hover .card-img-overlay {
+    opacity: 1;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.3) 100%) !important;
 }
 
 /* New Page */
 .add-btn {
     background-color: #fe424d !important;
     border: none !important;
+    font-weight: 600;
 }
 
 /* Edit Page */
 .edit-btn {
     background-color: #fe424d !important;
     border: none !important;
+    font-weight: 600;
 }
 
 /* Show Page */
 .show-img {
     height: 30vh;
+    object-fit: cover;
+    border-radius: 1rem;
 }
 
 .btns {
