@@ -1,17 +1,32 @@
 const Review = require("../models/review");
-const Listing = require("../models/listing"); 
+const Listing = require("../models/listing");
 
 module.exports.createReview = async (req, res) => {
-
-    console.log("Form Data Received:", req.body);
-    let listing = await Listing.findById(req.params.id);
+    let listing = await Listing.findById(req.params.id).populate("reviews");
     let newReview = new Review(req.body.review);
-    newReview.author = req.user._id;
+
     
+    const incomingComment = newReview.comment.trim().toLowerCase();
+
+    
+    if (listing.reviews.length > 0) {
+        const lastReview = listing.reviews[listing.reviews.length - 1];
+        const lastComment = lastReview.comment.trim().toLowerCase();
+
+        if (incomingComment === lastComment) {
+            req.flash("error", "Duplicate comment detected! Please write a unique review.");
+            return res.redirect(`/listings/${listing._id}`);
+        }
+    }
+
+    
+    newReview.author = req.user._id;
     listing.reviews.push(newReview);
+
     await newReview.save();
     await listing.save();
-    
+
+    req.flash("success", "Review created successfully!");
     res.redirect(`/listings/${listing._id}`);
 };
 
