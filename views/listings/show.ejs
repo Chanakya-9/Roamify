@@ -62,9 +62,9 @@
                             <label for="comment" class="form-label">Comments</label>
                             <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"
                                 required></textarea>
-                            <div class="invalid-feedback"><b>Please review...</b></div>
+                            <!-- <div class="invalid-feedback"><b>Please review...</b></div> -->
                         </div>
-                        <button  id="submitBtn" class="btn btn-outline-dark">Submit</button>
+                        <button id="submitBtn" class="btn btn-outline-dark">Submit</button>
                     </form>
                     <hr />
                     <% } %>
@@ -104,7 +104,6 @@
                 document.addEventListener("DOMContentLoaded", () => {
                     const form = document.getElementById("reviewForm");
                     const submitBtn = document.getElementById("submitBtn");
-                    const comment = document.getElementById("comment");
 
                     if (form) {
                         form.addEventListener("submit", function (event) {
@@ -113,11 +112,6 @@
                                 
                                 submitBtn.disabled = true;
                                 submitBtn.innerText = "Submitting...";
-
-                                
-                                setTimeout(() => {
-                                    comment.value = "";
-                                }, 50);
                             }
                         });
                     }
